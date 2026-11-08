@@ -1,19 +1,19 @@
-# Stats Agent Toolkit
+ Stats Agent Toolkit
 
 This 15-133 project builds on my HW6 [StatsHelper](https://github.com/guptaveer00/StatsHelper), a command-line app that finds statistics textbook passages from everyday questions. The toolkit lets Codex search the same local textbook index and gives a separate Codex session a procedure for checking a study guide against its sources.
 
-## What the toolkit does
+What the toolkit does
 
-- **`search_stats_passages`** is the single tool on a local Python MCP server. It takes a question and returns up to five textbook passages with their result IDs, PDF page numbers, and cosine distances. Smaller distances mean closer matches. The search excludes personal notes.
-- **`check-study-guide`** is a read-only skill for reviewing an existing statistics guide or recall answers when asked to check their sources. Give the reviewer the draft and the saved MCP response in a fresh session. It marks each claim as supported, partial, or unsupported and reports the evidence without editing the draft.
+- search_stats_passages is the single tool on a local Python MCP server. It takes a question and returns up to five textbook passages with their result IDs, PDF page numbers, and cosine distances. Smaller distances mean closer matches and the search excludes personal notes
+- check-study-guide is a read-only skill for reviewing an existing statistics guide or recall answers when asked to check their sources. Give the reviewer the draft and the saved MCP response in a fresh session. It marks each claim as supported, partial, or unsupported and reports the evidence without editing the draft.
 
-## Why I built it
+Why I built it
 
 In HW6 I wrote, “The expected passage is missing from the top five.” The MCP tool makes those ranked passages and their page references available directly to Codex so it can inspect what the index returned.
 
 In HW7, while checking the unfinished Pocket Shuffle starter, I wrote, “Report what you actually verified and any limitations; don’t claim unfinished features work.” In HW6 I also wrote, “Do not call a test successful just because the app returned something.” I used the same idea for the checker. A relevant-looking search hit earns a supported verdict only when the cited text backs the claim.
 
-## Installation
+Installation
 
 Use Python 3.13, the version tested on macOS. First build the local `study_v2` index using the setup steps in the [StatsHelper README](https://github.com/guptaveer00/StatsHelper#start-the-app). The server argument points to the directory containing `chroma_store/` and the `.model_cache/` used by StatsHelper. You can point it at a local copy of those directories, as I did for the demo.
 
@@ -37,7 +37,7 @@ default_tools_approval_mode = "writes"
 
 Ask Codex to call `search_stats_passages` for a statistics question and inspect the tool-call event for returned pages. I verified discovery and live calls in **Codex CLI on macOS**, using the same settings as command-line overrides. I also tested tool listing and calls through the Python MCP client's stdio transport. The VS Code extension was not tested.
 
-## Sources and AI use
+Sources and AI use
 
 The assignment’s `spec-check` example uses a report-only review and an evidence requirement. This checker applies those ideas to source citations and uses no bundled scripts. The MCP server adapts the assignment's FastMCP stdio example and reuses the collection, metadata, and embedding model from my HW6 project. The textbook source is Larry Wasserman's *All of Statistics*. The repo distributes code and instructions. The textbook, local database, model cache, and full transcript stay local.
 
