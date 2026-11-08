@@ -19,21 +19,21 @@ Use Python 3.13, the version tested on macOS. First build the local `study_v2` i
 
 From the toolkit directory, install the server dependencies.
 
-```sh
+sh
 python3.13 -m venv .venv
 .venv/bin/python -m pip install -r requirements.txt
-```
+
 
 The skill is already in `.agents/skills/check-study-guide/`. Open the toolkit directory as your Codex workspace, or copy that whole skill folder into another project's `.agents/skills/`. In a fresh reviewer session, ask Codex to use `$check-study-guide` on a draft and its saved MCP results.
 
 Add this block to the Codex `~/.codex/config.toml`. Replace all three absolute paths with paths on your machine. Restart the Codex session after saving.
 
-```toml
+toml
 [mcp_servers.stats]
 command = "/ABSOLUTE/PATH/StatsAgentToolkit/.venv/bin/python"
 args = ["/ABSOLUTE/PATH/StatsAgentToolkit/server.py", "/ABSOLUTE/PATH/StatsHelper"]
 default_tools_approval_mode = "writes"
-```
+
 
 Ask Codex to call `search_stats_passages` for a statistics question and inspect the tool-call event for returned pages. I verified discovery and live calls in **Codex CLI on macOS**, using the same settings as command-line overrides. I also tested tool listing and calls through the Python MCP client's stdio transport. The VS Code extension was not tested.
 
@@ -41,8 +41,5 @@ Sources and AI use
 
 The assignment’s `spec-check` example uses a report-only review and an evidence requirement. This checker applies those ideas to source citations and uses no bundled scripts. The MCP server adapts the assignment's FastMCP stdio example and reuses the collection, metadata, and embedding model from my HW6 project. The textbook source is Larry Wasserman's *All of Statistics*. The repo distributes code and instructions. The textbook, local database, model cache, and full transcript stay local.
 
-I used OpenAI Codex to help design and implement the toolkit, run independent author and reviewer sessions, revise the checker from the observed results, and draft the documentation. See [DEMONSTRATION.md](DEMONSTRATION.md) for the run excerpts and [ITERATION.md](ITERATION.md) for the before and after.
+I used OpenAI Codex to help design and implement the toolkit, run independent author and reviewer sessions, revise the checker from the observed results, and draft the documentation. 
 
-- [OpenAI documentation for Codex MCP registration](https://developers.openai.com/codex/mcp)
-- [OpenAI documentation for Codex skills](https://developers.openai.com/codex/skills)
-- [MCP Python SDK](https://github.com/modelcontextprotocol/python-sdk)
