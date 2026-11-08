@@ -1,0 +1,9 @@
+.venv/
+__pycache__/
+.DS_Store
+.env
+.codex/
+chroma_store/
+.model_cache/
+data/
+/demo-evidence.txt
